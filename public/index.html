@@ -11,7 +11,10 @@
         <!-- Landing Page -->
         <div id="landing-section" class="section">
             <div class="header">
-                <h1>dont talk</h1>
+                <h1 id="dont-talk-header" onclick="incrementDontTalkCounter()">
+                    dont talk
+                    <span id="dont-talk-counter" class="counter-bubble hidden">0</span>
+                </h1>
             </div>
             <div class="app-choices">
                 <div class="app-choice" onclick="chooseApp('quiz')">

@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCurrentTime();
     setInterval(updateCurrentTime, 1000);
     
+    // Initialize don't talk counter
+    initializeDontTalkCounter();
+    
     // Add event listener to clear sign-in error when user starts typing
     const nameInput = document.getElementById('name');
     if (nameInput) {
@@ -52,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
             displayLeaderboard();
         }
     }, 10000);
+    
+    // Check for midnight reset every minute
+    setInterval(checkMidnightReset, 60000);
 });
 
 // Handle scroll events to show/hide footer
@@ -1104,6 +1110,144 @@ function createMiniConfetti(cell) {
                     confetti.parentNode.removeChild(confetti);
                 }
             }, 2000);
-        }, i * 50); // Faster stagger for confetti
+                 }, i * 50); // Faster stagger for confetti
+     }
+}
+
+// =================== DON'T TALK COUNTER FUNCTIONS ===================
+
+// Initialize don't talk counter
+function initializeDontTalkCounter() {
+    const today = new Date().toDateString();
+    const storedData = localStorage.getItem('dontTalkCounter');
+    
+    if (storedData) {
+        const counterData = JSON.parse(storedData);
+        
+        // Check if it's the same day
+        if (counterData.date === today) {
+            updateCounterDisplay(counterData.count);
+        } else {
+            // New day, reset counter
+            resetDontTalkCounter();
+        }
+    } else {
+        // First time, initialize
+        resetDontTalkCounter();
+    }
+}
+
+// Increment don't talk counter
+function incrementDontTalkCounter() {
+    const today = new Date().toDateString();
+    const storedData = localStorage.getItem('dontTalkCounter');
+    let currentCount = 0;
+    
+    if (storedData) {
+        const counterData = JSON.parse(storedData);
+        if (counterData.date === today) {
+            currentCount = counterData.count;
+        }
+    }
+    
+    const newCount = currentCount + 1;
+    
+    // Save to localStorage
+    localStorage.setItem('dontTalkCounter', JSON.stringify({
+        date: today,
+        count: newCount
+    }));
+    
+    // Update display
+    updateCounterDisplay(newCount);
+    
+    // Create sparkle animation
+    createDontTalkSparkles();
+    
+    // Pulse animation for counter bubble
+    const counterBubble = document.getElementById('dont-talk-counter');
+    if (counterBubble) {
+        counterBubble.classList.add('pulse');
+        setTimeout(() => {
+            counterBubble.classList.remove('pulse');
+        }, 600);
+    }
+}
+
+// Update counter display
+function updateCounterDisplay(count) {
+    const counterElement = document.getElementById('dont-talk-counter');
+    if (counterElement) {
+        counterElement.textContent = count;
+        
+        if (count > 0) {
+            counterElement.classList.remove('hidden');
+        } else {
+            counterElement.classList.add('hidden');
+        }
+    }
+}
+
+// Reset don't talk counter
+function resetDontTalkCounter() {
+    const today = new Date().toDateString();
+    localStorage.setItem('dontTalkCounter', JSON.stringify({
+        date: today,
+        count: 0
+    }));
+    updateCounterDisplay(0);
+}
+
+// Check for midnight reset
+function checkMidnightReset() {
+    const today = new Date().toDateString();
+    const storedData = localStorage.getItem('dontTalkCounter');
+    
+    if (storedData) {
+        const counterData = JSON.parse(storedData);
+        if (counterData.date !== today) {
+            // It's a new day, reset the counter
+            resetDontTalkCounter();
+        }
+    }
+}
+
+// Create sparkle animation for don't talk clicks
+function createDontTalkSparkles() {
+    const header = document.getElementById('dont-talk-header');
+    if (!header) return;
+    
+    const headerRect = header.getBoundingClientRect();
+    const sparkleEmojis = ['✨', '⭐', '💫', '🌟', '✴️'];
+    
+    // Create 6-10 sparkles
+    const count = 6 + Math.floor(Math.random() * 5);
+    
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'dont-talk-sparkle sparkle-animate';
+            sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            
+            // Position around the header with randomness
+            const randomX = (Math.random() - 0.5) * 200; // ±100px
+            const randomY = (Math.random() - 0.5) * 100; // ±50px
+            
+            sparkle.style.left = (headerRect.left + headerRect.width/2 + randomX) + 'px';
+            sparkle.style.top = (headerRect.top + headerRect.height/2 + randomY) + 'px';
+            
+            // Random animation properties
+            sparkle.style.animationDelay = Math.random() * 0.3 + 's';
+            sparkle.style.animationDuration = (1.2 + Math.random() * 0.6) + 's';
+            
+            document.body.appendChild(sparkle);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
+        }, i * 80); // Stagger the sparkles
     }
 } 
