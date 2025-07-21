@@ -973,7 +973,7 @@ body {
     }
     
     .sleep-table {
-        min-width: 500px;
+        min-width: 400px;
     }
     
     .sleep-table th {
@@ -987,45 +987,49 @@ body {
     }
     
     .sleep-table th.name-column {
-        width: 100px;
-        padding-left: 8px;
+        width: 70px;
+        padding-left: 6px;
         position: sticky;
         left: 0;
         z-index: 11;
         background-color: #f0f0f0;
+        font-size: 0.75rem;
     }
     
     .sleep-table td {
-        padding: 14px 8px;
+        padding: 12px 6px;
     }
     
     .sleep-table .name-cell {
-        padding-left: 8px;
-        font-size: 0.8rem;
+        padding-left: 6px;
+        font-size: 0.7rem;
         position: sticky;
         left: 0;
         background-color: #f9f9f9;
         z-index: 1;
-        width: 100px;
-        max-width: 100px;
+        width: 70px;
+        max-width: 70px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        line-height: 1.2;
     }
     
     .sleep-cell {
-        font-size: 1.4rem;
-        min-width: 50px;
-        min-height: 50px;
+        font-size: 1.2rem;
+        min-width: 45px;
+        min-height: 45px;
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        padding: 8px 4px;
     }
     
     .total-cell {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: bold;
-        min-width: 60px;
+        min-width: 50px;
+        padding: 8px 4px;
     }
     
     /* Quiz Mobile */
@@ -1133,9 +1137,10 @@ body {
     
     .sleep-table th.name-column,
     .sleep-table .name-cell {
-        width: 90px;
-        max-width: 90px;
-        font-size: 0.75rem;
+        width: 60px;
+        max-width: 60px;
+        font-size: 0.65rem;
+        padding-left: 4px;
     }
     
     .quiz-options {
