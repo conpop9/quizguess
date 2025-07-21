@@ -1164,6 +1164,9 @@ function incrementDontTalkCounter() {
     // Create sparkle animation
     createDontTalkSparkles();
     
+    // Create full page confetti
+    createFullPageConfetti();
+    
     // Pulse animation for counter bubble
     const counterBubble = document.getElementById('dont-talk-counter');
     if (counterBubble) {
@@ -1250,4 +1253,39 @@ function createDontTalkSparkles() {
             }, 2000);
         }, i * 80); // Stagger the sparkles
     }
+}
+
+// Create full page confetti animation
+function createFullPageConfetti() {
+    // Create confetti container
+    const confettiContainer = document.createElement('div');
+    confettiContainer.className = 'full-page-confetti';
+    document.body.appendChild(confettiContainer);
+    
+    // Create confetti pieces
+    const confettiCount = 150; // More confetti for better effect
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        
+        // Random horizontal position
+        confetti.style.left = Math.random() * 100 + 'vw';
+        
+        // Random animation delay for staggered effect
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        
+        // Random rotation speed by modifying the animation
+        const rotationMultiplier = 0.5 + Math.random() * 1.5; // 0.5x to 2x speed
+        confetti.style.animationDuration = (3 / rotationMultiplier) + 's';
+        
+        confettiContainer.appendChild(confetti);
+    }
+    
+    // Remove confetti container after animation completes
+    setTimeout(() => {
+        if (confettiContainer.parentNode) {
+            confettiContainer.parentNode.removeChild(confettiContainer);
+        }
+    }, 4000);
 } 
