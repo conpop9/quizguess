@@ -1590,6 +1590,87 @@ body {
     animation: successPop 0.6s ease-out forwards;
 }
 
+/* Sleep Emoji Animations */
+.zzz-emoji {
+    position: fixed;
+    font-size: 1.5rem;
+    z-index: 9999;
+    pointer-events: none;
+    color: #6366f1;
+    font-weight: bold;
+}
+
+@keyframes zzzFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg) scale(1.1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-40px) rotate(-3deg) scale(1.2);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translateY(-60px) rotate(2deg) scale(1.1);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-80px) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+.zzz-animate {
+    animation: zzzFloat 2s ease-out forwards;
+}
+
+/* Mini Confetti for Awake Clicks */
+.mini-confetti {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.mini-confetti-yellow { background-color: #fbbf24; }
+.mini-confetti-green { background-color: #34d399; }
+.mini-confetti-blue { background-color: #60a5fa; }
+.mini-confetti-pink { background-color: #f472b6; }
+.mini-confetti-purple { background-color: #a78bfa; }
+.mini-confetti-orange { background-color: #fb923c; }
+
+@keyframes miniConfettiFall {
+    0% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(-15px) rotate(90deg) scale(1.2);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-25px) rotate(180deg) scale(1.1);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translateY(-30px) rotate(270deg) scale(0.9);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-40px) rotate(360deg) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.mini-confetti-animate {
+    animation: miniConfettiFall 1.5s ease-out forwards;
+}
+
 /* Footer Styles */
 .footer {
     position: fixed;

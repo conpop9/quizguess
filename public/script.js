@@ -917,6 +917,13 @@ function toggleSleepStatus(cell, studentName, period) {
     cell.classList.add(newStatus);
     cell.textContent = newStatus === 'sleeping' ? '😴' : '😊';
     
+    // Trigger animation based on new status
+    if (newStatus === 'sleeping') {
+        createZzzAnimation(cell);
+    } else {
+        createMiniConfetti(cell);
+    }
+    
     // Update total for this student
     updateStudentTotal(studentName);
     
@@ -1020,4 +1027,83 @@ function showSleepSuccessMessage(message) {
             successMsg.parentNode.removeChild(successMsg);
         }
     }, 2000);
+}
+
+// Create floating ZZZ animation when someone falls asleep
+function createZzzAnimation(cell) {
+    const cellRect = cell.getBoundingClientRect();
+    const zzzEmojis = ['💤', '😴', 'Z', 'z', 'Z'];
+    
+    // Create 5-8 zzz emojis
+    const count = 5 + Math.floor(Math.random() * 4);
+    
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const zzz = document.createElement('div');
+            zzz.className = 'zzz-emoji zzz-animate';
+            zzz.textContent = zzzEmojis[Math.floor(Math.random() * zzzEmojis.length)];
+            
+            // Position near the clicked cell with some randomness
+            const randomX = (Math.random() - 0.5) * 60; // ±30px
+            const randomY = (Math.random() - 0.5) * 20; // ±10px
+            
+            zzz.style.left = (cellRect.left + cellRect.width/2 + randomX) + 'px';
+            zzz.style.top = (cellRect.top + cellRect.height/2 + randomY) + 'px';
+            
+            // Random animation delay and duration variation
+            zzz.style.animationDelay = Math.random() * 0.3 + 's';
+            zzz.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+            
+            document.body.appendChild(zzz);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (zzz.parentNode) {
+                    zzz.parentNode.removeChild(zzz);
+                }
+            }, 2500);
+        }, i * 100); // Stagger the creation
+    }
+}
+
+// Create mini confetti animation when someone wakes up
+function createMiniConfetti(cell) {
+    const cellRect = cell.getBoundingClientRect();
+    const colors = ['yellow', 'green', 'blue', 'pink', 'purple', 'orange'];
+    
+    // Create 8-12 mini confetti pieces
+    const count = 8 + Math.floor(Math.random() * 5);
+    
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.className = `mini-confetti mini-confetti-${color} mini-confetti-animate`;
+            
+            // Position near the clicked cell with more randomness
+            const randomX = (Math.random() - 0.5) * 80; // ±40px
+            const randomY = (Math.random() - 0.5) * 30; // ±15px
+            
+            confetti.style.left = (cellRect.left + cellRect.width/2 + randomX) + 'px';
+            confetti.style.top = (cellRect.top + cellRect.height/2 + randomY) + 'px';
+            
+            // Random animation delay and duration
+            confetti.style.animationDelay = Math.random() * 0.2 + 's';
+            confetti.style.animationDuration = (1 + Math.random() * 1) + 's';
+            
+            // Random size variation
+            const size = 4 + Math.random() * 4; // 4-8px
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            
+            document.body.appendChild(confetti);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (confetti.parentNode) {
+                    confetti.parentNode.removeChild(confetti);
+                }
+            }, 2000);
+        }, i * 50); // Faster stagger for confetti
+    }
 } 
