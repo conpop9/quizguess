@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
         nameInput.addEventListener('input', hideSignInError);
     }
     
+    // Add scroll event listener for footer
+    window.addEventListener('scroll', handleScroll);
+    
     // Refresh data every 10 seconds for real-time updates
     setInterval(function() {
         if (currentUser && !document.getElementById('main-section').classList.contains('hidden')) {
@@ -50,6 +53,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 10000);
 });
+
+// Handle scroll events to show/hide footer
+function handleScroll() {
+    const footer = document.getElementById('footer');
+    if (!footer) return;
+    
+    // Calculate if user has scrolled to bottom
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // Show footer when user is near the bottom (within 100px)
+    const isNearBottom = scrollTop + windowHeight >= documentHeight - 100;
+    
+    if (isNearBottom) {
+        footer.classList.remove('hidden');
+        footer.classList.add('show');
+    } else {
+        footer.classList.remove('show');
+        setTimeout(() => {
+            if (!footer.classList.contains('show')) {
+                footer.classList.add('hidden');
+            }
+        }, 400); // Wait for transition to complete
+    }
+}
 
 // Check if user is already signed in
 function checkExistingSession() {
@@ -741,14 +770,6 @@ function initializeBedDebt() {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('sleep-date').value = today;
     
-    // Set "All" as default active filter
-    setTimeout(() => {
-        const allButton = document.querySelector('.alphabet-btn');
-        if (allButton) {
-            allButton.classList.add('active');
-        }
-    }, 100);
-    
     // Load sleep data for today
     loadSleepData();
 }
@@ -849,7 +870,7 @@ function createSleepTable() {
     
 }
 
-// Get filtered students based on search and letter filter
+// Get filtered students based on search filter only
 function getFilteredStudents() {
     let filtered = [...studentNames];
     
@@ -863,29 +884,12 @@ function getFilteredStudents() {
         );
     }
     
-    // Apply letter filter
-    const activeLetter = document.querySelector('.alphabet-btn.active');
-    if (activeLetter && activeLetter.textContent !== 'All') {
-        const letter = activeLetter.textContent.toLowerCase();
-        filtered = filtered.filter(name => 
-            name.toLowerCase().startsWith(letter)
-        );
-    }
-    
     return filtered;
 }
 
 // Filter students based on search input
 function filterStudents() {
     createSleepTable();
-    
-    // Clear any active letter filter when searching
-    const searchInput = document.getElementById('student-search');
-    if (searchInput && searchInput.value.trim()) {
-        document.querySelectorAll('.alphabet-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-    }
 }
 
 // Clear search
@@ -897,28 +901,7 @@ function clearSearch() {
     }
 }
 
-// Jump to students starting with specific letter
-function jumpToLetter(letter) {
-    // Clear search when using letter navigation
-    const searchInput = document.getElementById('student-search');
-    if (searchInput) {
-        searchInput.value = '';
-    }
-    
-    // Update active button
-    document.querySelectorAll('.alphabet-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Find and activate the clicked button
-    document.querySelectorAll('.alphabet-btn').forEach(btn => {
-        if (btn.textContent === letter || (letter === 'all' && btn.textContent === 'All')) {
-            btn.classList.add('active');
-        }
-    });
-    
-    createSleepTable();
-}
+// Jump to letter function removed - alphabet navigation no longer available
 
 // Toggle sleep status for a student in a specific period
 function toggleSleepStatus(cell, studentName, period) {

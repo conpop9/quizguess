@@ -838,21 +838,7 @@ body {
         font-size: 1.1rem;
     }
     
-    .alphabet-nav {
-        gap: 4px;
-        margin-top: 10px;
-    }
-    
-    .alphabet-btn {
-        padding: 10px 8px;
-        font-size: 0.8rem;
-        min-width: 32px;
-        min-height: 32px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    /* Alphabet navigation styles removed */
     
     /* Sleep Table Mobile */
     .sleep-table-container {
@@ -1019,12 +1005,7 @@ body {
         padding: 20px 15px;
     }
     
-    .alphabet-btn {
-        padding: 8px 6px;
-        font-size: 0.75rem;
-        min-width: 28px;
-        min-height: 28px;
-    }
+    /* Alphabet button styles removed */
     
     .sleep-table th.name-column,
     .sleep-table .name-cell {
@@ -1233,34 +1214,7 @@ body {
     background-color: #f0f0f0;
 }
 
-.alphabet-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-}
-
-.alphabet-btn {
-    padding: 8px 12px;
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #000000;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    font-size: 0.9rem;
-    border-radius: 3px;
-    min-width: 40px;
-}
-
-.alphabet-btn:hover {
-    background-color: #f0f0f0;
-}
-
-.alphabet-btn.active {
-    background-color: #000000;
-    color: #ffffff;
-}
+/* Alphabet navigation removed */
 
 
 
@@ -1504,4 +1458,51 @@ body {
 
 .success-animate {
     animation: successPop 0.6s ease-out forwards;
+}
+
+/* Footer Styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid #e0e0e0;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.4s ease;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.footer-content {
+    text-align: center;
+    padding: 15px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    font-size: 1rem;
+    color: #666666;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* Mobile footer adjustments */
+@media (max-width: 767px) {
+    .footer-content {
+        padding: 12px 15px;
+    }
+    
+    .footer-content p {
+        font-size: 0.9rem;
+    }
 } 
