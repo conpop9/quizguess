@@ -1,0 +1,481 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: #666666;
+    font-weight: 300;
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #000000;
+    background-color: #f9f9f9;
+}
+
+.user-info span {
+    font-weight: 500;
+}
+
+/* Sign In Form */
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.signin-form input {
+    padding: 15px;
+    border: 2px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.signin-form input:focus {
+    border-color: #666666;
+}
+
+.signin-form button {
+    padding: 15px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.signin-form button:hover {
+    background-color: #333333;
+}
+
+/* Voting Container */
+.voting-container {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.voting-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.vote-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.vote-btn {
+    padding: 15px 30px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 120px;
+}
+
+.vote-btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.vote-btn.selected {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Quiz Selection */
+.quiz-selection {
+    margin-top: 30px;
+}
+
+.quiz-selection h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.quiz-btn {
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.quiz-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.quiz-btn.selected {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Submit Section */
+.submit-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    padding: 15px 40px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.submit-btn:hover {
+    background-color: #333333;
+}
+
+/* Results Container */
+.results-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+}
+
+.results-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.sync-indicator {
+    color: #00ff00;
+    font-size: 0.8rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    background-color: #f9f9f9;
+}
+
+.result-bar {
+    width: 100%;
+    height: 25px;
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    margin-top: 10px;
+    position: relative;
+}
+
+.result-fill {
+    height: 100%;
+    background-color: #333333;
+    transition: width 0.5s ease;
+}
+
+.result-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Leaderboard Styles */
+.leaderboard-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+}
+
+.leaderboard-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.leaderboard-full {
+    width: 100%;
+    max-width: 800px;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.leaderboard-item:hover {
+    background-color: #f0f0f0;
+}
+
+.leaderboard-item.top-3 {
+    background-color: #e8e8e8;
+    border: 2px solid #000000;
+    font-weight: 600;
+}
+
+.leaderboard-rank {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}
+
+.leaderboard-name {
+    flex: 1;
+    font-size: 1.1rem;
+    margin-left: 20px;
+}
+
+.leaderboard-roll {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-left: 10px;
+}
+
+.leaderboard-score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 60px;
+    text-align: center;
+}
+
+.leaderboard-empty {
+    text-align: center;
+    padding: 40px;
+    color: #666666;
+    font-size: 1.1rem;
+}
+
+/* Already Voted / Time Restriction */
+.already-voted, .time-restriction {
+    text-align: center;
+    padding: 40px;
+    border: 2px solid #000000;
+    background-color: #f9f9f9;
+    margin-top: 40px;
+}
+
+.already-voted h2, .time-restriction h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.already-voted p, .time-restriction p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Admin Section */
+.admin-controls {
+    width: 100%;
+    max-width: 500px;
+}
+
+.admin-controls h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.admin-option {
+    margin-bottom: 20px;
+}
+
+.admin-option label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.admin-option select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1rem;
+    outline: none;
+}
+
+.admin-controls button {
+    width: 100%;
+    padding: 15px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+.admin-controls button:hover {
+    background-color: #333333;
+}
+
+/* Navigation */
+.navigation {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+
+.navigation button {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.navigation button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .vote-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .vote-btn {
+        width: 200px;
+    }
+    
+    .quiz-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .navigation {
+        flex-direction: column;
+        width: 90%;
+        max-width: 300px;
+    }
+} 

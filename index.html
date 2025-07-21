@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Guess</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sign In Section -->
+        <div id="signin-section" class="section">
+            <div class="header">
+                <h1>Quiz Guess</h1>
+                <p>Daily Quiz Prediction Game</p>
+            </div>
+            <div class="signin-form">
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <input type="text" id="rollNumber" placeholder="Enter your roll number" required>
+                <button onclick="signIn()">Sign In</button>
+            </div>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="main-section" class="section hidden">
+            <div class="header">
+                <h1>Quiz Guess</h1>
+                <div class="user-info">
+                    <span id="welcome-text"></span>
+                    <span id="user-score"></span>
+                </div>
+            </div>
+
+            <!-- Voting Section -->
+            <div id="voting-section" class="voting-container">
+                <h2>Will there be a quiz today?</h2>
+                <div class="vote-options">
+                    <button class="vote-btn" onclick="selectQuizOption('yes')">Yes</button>
+                    <button class="vote-btn" onclick="selectQuizOption('no')">No</button>
+                </div>
+
+                <!-- Quiz Subject Selection -->
+                <div id="quiz-selection" class="quiz-selection hidden">
+                    <h3>Which quiz do you think it will be?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="selectQuiz('FRA')">FRA</button>
+                        <button class="quiz-btn" onclick="selectQuiz('LAB')">LAB</button>
+                        <button class="quiz-btn" onclick="selectQuiz('Qm-1a')">Qm-1a</button>
+                        <button class="quiz-btn" onclick="selectQuiz('ID')">ID</button>
+                        <button class="quiz-btn" onclick="selectQuiz('ME')">ME</button>
+                        <button class="quiz-btn" onclick="selectQuiz('HRM')">HRM</button>
+                        <button class="quiz-btn" onclick="selectQuiz('MGRCMP')">MGRCMP</button>
+                    </div>
+                </div>
+
+                <div id="submit-section" class="submit-section hidden">
+                    <button class="submit-btn" onclick="submitVote()">Submit Vote</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="results-container">
+                <h2>Live Results <span id="sync-indicator" class="sync-indicator">●</span></h2>
+                <div id="live-results"></div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div id="leaderboard-section" class="leaderboard-container">
+                <h2>Leaderboard</h2>
+                <div id="leaderboard-content"></div>
+            </div>
+
+            <!-- Already Voted Section -->
+            <div id="already-voted" class="already-voted hidden">
+                <h2>You have already voted today!</h2>
+                <p>Your vote: <span id="user-vote"></span></p>
+                <p>Come back tomorrow to vote again.</p>
+            </div>
+
+            <!-- Time Restriction Message -->
+            <div id="time-restriction" class="time-restriction hidden">
+                <h2>Voting is closed</h2>
+                <p>Voting is only allowed from 12:00 AM to 8:30 PM</p>
+                <p>Current time: <span id="current-time"></span></p>
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div id="leaderboard-main-section" class="section hidden">
+            <div class="header">
+                <h1>Leaderboard</h1>
+                <p>Cumulative Scores</p>
+            </div>
+            <div class="leaderboard-full">
+                <div id="leaderboard-full-content"></div>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="admin-section" class="section hidden">
+            <div class="header">
+                <h1>Administrator Panel</h1>
+            </div>
+            <div class="admin-controls">
+                <h3>Set Today's Result</h3>
+                <div class="admin-option">
+                    <label>Did a quiz happen today?</label>
+                    <select id="admin-quiz-happened">
+                        <option value="">Select...</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div id="admin-quiz-selection" class="admin-option hidden">
+                    <label>Which quiz happened?</label>
+                    <select id="admin-quiz-subject">
+                        <option value="">Select...</option>
+                        <option value="FRA">FRA</option>
+                        <option value="LAB">LAB</option>
+                        <option value="Qm-1a">Qm-1a</option>
+                        <option value="ID">ID</option>
+                        <option value="ME">ME</option>
+                        <option value="HRM">HRM</option>
+                        <option value="MGRCMP">MGRCMP</option>
+                    </select>
+                </div>
+                <button onclick="setResult()">Set Result & Calculate Scores</button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div id="navigation" class="navigation hidden">
+            <button onclick="showMain()">Main</button>
+            <button onclick="showLeaderboard()">Leaderboard</button>
+            <button onclick="showAdmin()">Admin</button>
+            <button onclick="signOut()">Sign Out</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

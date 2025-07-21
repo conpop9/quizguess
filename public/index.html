@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Quiz Guess</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <div id="landing-section" class="section">
+            <div class="header">
+                <h1>dont talk</h1>
+            </div>
+            <div class="app-choices">
+                <div class="app-choice" onclick="chooseApp('quiz')">
+                    <div class="app-icon">🎯</div>
+                    <h3>Quiz Guess</h3>
+                    <button class="choice-btn">Enter Quiz Guess</button>
+                </div>
+                <div class="app-choice" onclick="chooseApp('sleep')">
+                    <div class="app-icon">😴</div>
+                    <h3>Bed Debt</h3>
+                    <button class="choice-btn">Enter Bed Debt</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Guess Sign In Section -->
+        <div id="quiz-signin-section" class="section hidden">
+            <div class="header">
+                <h1>Quiz Guess</h1>
+            </div>
+            <div class="signin-form">
+                <input type="text" id="name" placeholder="Enter your full name" required onkeypress="if(event.key==='Enter') signIn()">
+                <button onclick="signIn()">Sign In</button>
+                <div id="signin-error" class="signin-error hidden"></div>
+            </div>
+            <div class="back-to-home">
+                <button class="back-btn" onclick="goHome()">← Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Quiz Guess Navigation -->
+        <div id="quiz-navigation" class="top-navigation hidden">
+            <div class="nav-header">
+                <h1>Quiz Guess</h1>
+                <div class="user-info">
+                    <span id="welcome-text"></span>
+                    <span id="user-score"></span>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button id="main-btn" class="nav-btn active" onclick="showMain()">Main</button>
+                <button id="leaderboard-btn" class="nav-btn" onclick="showLeaderboard()">Leaderboard</button>
+                <button id="admin-btn" class="nav-btn" onclick="showAdminLogin()">Admin</button>
+                <button class="nav-btn sign-out" onclick="signOut()">Sign Out</button>
+                <button class="nav-btn back-home" onclick="goHome()">← Home</button>
+            </div>
+        </div>
+
+        <!-- Sleep Debt Navigation -->
+        <div id="sleep-navigation" class="top-navigation hidden">
+            <div class="nav-buttons">
+                <button class="nav-btn back-home" onclick="goHome()">← Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="main-section" class="content-section hidden">
+            <!-- Voting Section -->
+            <div id="voting-section" class="voting-container">
+                <h2>Will there be a quiz today?</h2>
+                <div class="vote-options">
+                    <button class="vote-btn" onclick="selectQuizOption('yes')">Yes</button>
+                    <button class="vote-btn" onclick="selectQuizOption('no')">No</button>
+                </div>
+
+                <!-- Quiz Subject Selection -->
+                <div id="quiz-selection" class="quiz-selection hidden">
+                    <h3>Which quiz do you think it will be?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="selectQuiz('FRA')">FRA</button>
+                        <button class="quiz-btn" onclick="selectQuiz('LAB')">LAB</button>
+                        <button class="quiz-btn" onclick="selectQuiz('Qm-1a')">Qm-1a</button>
+                        <button class="quiz-btn" onclick="selectQuiz('ID')">ID</button>
+                        <button class="quiz-btn" onclick="selectQuiz('ME')">ME</button>
+                        <button class="quiz-btn" onclick="selectQuiz('HRM')">HRM</button>
+                        <button class="quiz-btn" onclick="selectQuiz('MGRCMP')">MGRCMP</button>
+                    </div>
+                </div>
+
+                <div id="submit-section" class="submit-section hidden">
+                    <button class="submit-btn" onclick="submitVote()">Submit Vote</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="results-container">
+                <h2>Live Results <span id="sync-indicator" class="sync-indicator">●</span></h2>
+                <div id="live-results"></div>
+            </div>
+
+            <!-- Leaderboard Section -->
+            <div id="leaderboard-section" class="leaderboard-container">
+                <h2>Leaderboard</h2>
+                <div id="leaderboard-content"></div>
+            </div>
+
+            <!-- Already Voted Section -->
+            <div id="already-voted" class="already-voted hidden">
+                <h2>You have already voted today!</h2>
+                <p>Your vote: <span id="user-vote"></span></p>
+                <p>Come back tomorrow to vote again.</p>
+            </div>
+
+            <!-- Time Restriction Message -->
+            <div id="time-restriction" class="time-restriction hidden">
+                <h2>Voting is closed</h2>
+                <p>Voting is only allowed from 12:00 AM to 1:45 PM</p>
+                <p>Current time: <span id="current-time"></span></p>
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div id="leaderboard-main-section" class="content-section hidden">
+            <div class="section-header">
+                <h2>Leaderboard</h2>
+                <p>Cumulative Scores</p>
+            </div>
+            <div class="leaderboard-full">
+                <div id="leaderboard-full-content"></div>
+            </div>
+        </div>
+
+        <!-- Admin Login Section -->
+        <div id="admin-login-section" class="content-section hidden">
+            <div class="section-header">
+                <h2>Administrator Login</h2>
+                <p>Enter password to access admin panel</p>
+            </div>
+            <div class="admin-login-form">
+                <input type="password" id="admin-password" placeholder="Enter admin password" required onkeypress="if(event.key==='Enter') adminLogin()">
+                <button onclick="adminLogin()">Login</button>
+            </div>
+        </div>
+
+        <!-- Sleep Debt Section -->
+        <div id="sleep-debt-section" class="content-section hidden">
+            
+            <!-- Sleep Tracker Controls -->
+            <div class="sleep-tracker-controls">
+                <div class="date-selector">
+                    <label for="sleep-date">Select Date:</label>
+                    <input type="date" id="sleep-date" onchange="loadSleepData()">
+                </div>
+                <button class="leaderboard-btn" onclick="showSleepLeaderboard()">🏆 View Leaderboard</button>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="search-controls">
+                <div class="search-box">
+                    <input type="text" id="student-search" placeholder="" oninput="filterStudents()">
+                    <button class="clear-search-btn" onclick="clearSearch()">✕</button>
+                </div>
+                <div class="alphabet-nav">
+                    <button class="alphabet-btn" onclick="jumpToLetter('all')">All</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('A')">A</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('B')">B</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('C')">C</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('D')">D</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('G')">G</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('H')">H</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('J')">J</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('K')">K</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('L')">L</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('M')">M</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('N')">N</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('P')">P</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('R')">R</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('S')">S</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('T')">T</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('U')">U</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('V')">V</button>
+                    <button class="alphabet-btn" onclick="jumpToLetter('Y')">Y</button>
+                </div>
+            </div>
+
+
+
+            <!-- Excel-like Sleep Table -->
+            <div class="sleep-table-container">
+                <table class="sleep-table" id="sleep-table">
+                    <thead>
+                        <tr>
+                            <th class="name-column">Name</th>
+                            <th class="period-column">Class 1</th>
+                            <th class="period-column">Class 2</th>
+                            <th class="period-column">Class 3</th>
+                            <th class="total-column">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sleep-table-body">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sleep Leaderboard Modal -->
+            <div id="sleep-leaderboard-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>🏆 Sleep Champions Leaderboard</h3>
+                        <button class="close-btn" onclick="closeSleepLeaderboard()">&times;</button>
+                    </div>
+                    <div class="sleep-leaderboard" id="sleep-leaderboard">
+                        <!-- Leaderboard will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Section -->
+        <div id="admin-section" class="content-section hidden">
+            <div class="section-header">
+                <h2>Administrator Panel</h2>
+                <p>Set daily quiz results</p>
+            </div>
+            <div class="admin-controls">
+                <h3>Set Today's Result</h3>
+                <div class="admin-option">
+                    <label>Did a quiz happen today?</label>
+                    <select id="admin-quiz-happened">
+                        <option value="">Select...</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div id="admin-quiz-selection" class="admin-option hidden">
+                    <label>Which quiz happened?</label>
+                    <select id="admin-quiz-subject">
+                        <option value="">Select...</option>
+                        <option value="FRA">FRA</option>
+                        <option value="LAB">LAB</option>
+                        <option value="Qm-1a">Qm-1a</option>
+                        <option value="ID">ID</option>
+                        <option value="ME">ME</option>
+                        <option value="HRM">HRM</option>
+                        <option value="MGRCMP">MGRCMP</option>
+                    </select>
+                </div>
+                <button onclick="setResult()">Set Result & Calculate Scores</button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
