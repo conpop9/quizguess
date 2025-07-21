@@ -27,7 +27,7 @@ const studentNames = [
 ];
 
 // API base URL
-const API_BASE = '';
+const API_BASE = 'https://secbtp-production.up.railway.app';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
