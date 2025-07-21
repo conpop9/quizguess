@@ -973,7 +973,7 @@ body {
     }
     
     .sleep-table {
-        min-width: 400px;
+        min-width: 350px;
     }
     
     .sleep-table th {
@@ -987,32 +987,32 @@ body {
     }
     
     .sleep-table th.name-column {
-        width: 70px;
-        padding-left: 6px;
+        width: 50px;
+        padding-left: 4px;
         position: sticky;
         left: 0;
         z-index: 11;
         background-color: #f0f0f0;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
     
     .sleep-table td {
-        padding: 12px 6px;
+        padding: 10px 4px;
     }
     
     .sleep-table .name-cell {
-        padding-left: 6px;
-        font-size: 0.7rem;
+        padding-left: 4px;
+        font-size: 0.65rem;
         position: sticky;
         left: 0;
         background-color: #f9f9f9;
         z-index: 1;
-        width: 70px;
-        max-width: 70px;
+        width: 50px;
+        max-width: 50px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 1.2;
+        line-height: 1.1;
     }
     
     .sleep-cell {
@@ -1137,10 +1137,10 @@ body {
     
     .sleep-table th.name-column,
     .sleep-table .name-cell {
-        width: 60px;
-        max-width: 60px;
-        font-size: 0.65rem;
-        padding-left: 4px;
+        width: 45px;
+        max-width: 45px;
+        font-size: 0.6rem;
+        padding-left: 3px;
     }
     
     .quiz-options {
