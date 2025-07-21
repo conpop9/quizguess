@@ -1117,63 +1117,57 @@ function createMiniConfetti(cell) {
 // =================== DON'T TALK COUNTER FUNCTIONS ===================
 
 // Initialize don't talk counter
-function initializeDontTalkCounter() {
-    const today = new Date().toDateString();
-    const storedData = localStorage.getItem('dontTalkCounter');
-    
-    if (storedData) {
-        const counterData = JSON.parse(storedData);
-        
-        // Check if it's the same day
-        if (counterData.date === today) {
+async function initializeDontTalkCounter() {
+    try {
+        const response = await fetch(`${API_BASE}/api/counter`);
+        if (response.ok) {
+            const counterData = await response.json();
             updateCounterDisplay(counterData.count);
         } else {
-            // New day, reset counter
-            resetDontTalkCounter();
+            console.error('Failed to load counter');
+            updateCounterDisplay(0);
         }
-    } else {
-        // First time, initialize
-        resetDontTalkCounter();
+    } catch (error) {
+        console.error('Error loading counter:', error);
+        updateCounterDisplay(0);
     }
 }
 
 // Increment don't talk counter
-function incrementDontTalkCounter() {
-    const today = new Date().toDateString();
-    const storedData = localStorage.getItem('dontTalkCounter');
-    let currentCount = 0;
-    
-    if (storedData) {
-        const counterData = JSON.parse(storedData);
-        if (counterData.date === today) {
-            currentCount = counterData.count;
+async function incrementDontTalkCounter() {
+    try {
+        const response = await fetch(`${API_BASE}/api/counter/increment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            const counterData = await response.json();
+            
+            // Update display
+            updateCounterDisplay(counterData.count);
+            
+            // Create sparkle animation
+            createDontTalkSparkles();
+            
+            // Create full page confetti
+            createFullPageConfetti();
+            
+            // Pulse animation for counter bubble
+            const counterBubble = document.getElementById('dont-talk-counter');
+            if (counterBubble) {
+                counterBubble.classList.add('pulse');
+                setTimeout(() => {
+                    counterBubble.classList.remove('pulse');
+                }, 600);
+            }
+        } else {
+            console.error('Failed to increment counter');
         }
-    }
-    
-    const newCount = currentCount + 1;
-    
-    // Save to localStorage
-    localStorage.setItem('dontTalkCounter', JSON.stringify({
-        date: today,
-        count: newCount
-    }));
-    
-    // Update display
-    updateCounterDisplay(newCount);
-    
-    // Create sparkle animation
-    createDontTalkSparkles();
-    
-    // Create full page confetti
-    createFullPageConfetti();
-    
-    // Pulse animation for counter bubble
-    const counterBubble = document.getElementById('dont-talk-counter');
-    if (counterBubble) {
-        counterBubble.classList.add('pulse');
-        setTimeout(() => {
-            counterBubble.classList.remove('pulse');
-        }, 600);
+    } catch (error) {
+        console.error('Error incrementing counter:', error);
     }
 }
 
@@ -1191,27 +1185,21 @@ function updateCounterDisplay(count) {
     }
 }
 
-// Reset don't talk counter
+// Reset don't talk counter (this will be handled automatically by the backend)
 function resetDontTalkCounter() {
-    const today = new Date().toDateString();
-    localStorage.setItem('dontTalkCounter', JSON.stringify({
-        date: today,
-        count: 0
-    }));
     updateCounterDisplay(0);
 }
 
-// Check for midnight reset
-function checkMidnightReset() {
-    const today = new Date().toDateString();
-    const storedData = localStorage.getItem('dontTalkCounter');
-    
-    if (storedData) {
-        const counterData = JSON.parse(storedData);
-        if (counterData.date !== today) {
-            // It's a new day, reset the counter
-            resetDontTalkCounter();
+// Check for midnight reset (now handled by backend, but we can refresh the display)
+async function checkMidnightReset() {
+    try {
+        const response = await fetch(`${API_BASE}/api/counter`);
+        if (response.ok) {
+            const counterData = await response.json();
+            updateCounterDisplay(counterData.count);
         }
+    } catch (error) {
+        console.error('Error checking counter reset:', error);
     }
 }
 

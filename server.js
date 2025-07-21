@@ -18,6 +18,7 @@ const VOTES_FILE = path.join(DATA_DIR, 'votes.json');
 const SCORES_FILE = path.join(DATA_DIR, 'scores.json');
 const RESULTS_FILE = path.join(DATA_DIR, 'results.json');
 const SLEEP_FILE = path.join(DATA_DIR, 'sleep.json');
+const COUNTER_FILE = path.join(DATA_DIR, 'counter.json');
 
 // Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
@@ -37,6 +38,9 @@ function initializeDataFiles() {
     }
     if (!fs.existsSync(SLEEP_FILE)) {
         fs.writeFileSync(SLEEP_FILE, JSON.stringify({}));
+    }
+    if (!fs.existsSync(COUNTER_FILE)) {
+        fs.writeFileSync(COUNTER_FILE, JSON.stringify({ count: 0, date: '' }));
     }
 }
 
@@ -321,6 +325,53 @@ app.get('/api/sleep-leaderboard', (req, res) => {
     leaderboard.sort((a, b) => b.sleepCount - a.sleepCount);
     
     res.json(leaderboard);
+});
+
+// =================== DON'T TALK COUNTER ENDPOINTS ===================
+
+// Get don't talk counter
+app.get('/api/counter', (req, res) => {
+    try {
+        const counterData = readData(COUNTER_FILE);
+        const today = new Date().toDateString();
+        
+        // Reset counter if it's a new day
+        if (counterData.date !== today) {
+            const resetData = { count: 0, date: today };
+            writeData(COUNTER_FILE, resetData);
+            res.json(resetData);
+        } else {
+            res.json(counterData);
+        }
+    } catch (error) {
+        console.error('Error reading counter:', error);
+        res.status(500).json({ error: 'Failed to read counter' });
+    }
+});
+
+// Increment don't talk counter
+app.post('/api/counter/increment', (req, res) => {
+    try {
+        const counterData = readData(COUNTER_FILE);
+        const today = new Date().toDateString();
+        
+        let newCount;
+        if (counterData.date !== today) {
+            // New day, start from 1
+            newCount = 1;
+        } else {
+            // Same day, increment
+            newCount = (counterData.count || 0) + 1;
+        }
+        
+        const updatedData = { count: newCount, date: today };
+        writeData(COUNTER_FILE, updatedData);
+        
+        res.json(updatedData);
+    } catch (error) {
+        console.error('Error incrementing counter:', error);
+        res.status(500).json({ error: 'Failed to increment counter' });
+    }
 });
 
 // Serve the main HTML file
