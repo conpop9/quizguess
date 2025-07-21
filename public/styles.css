@@ -863,8 +863,8 @@ body {
     }
     
     .sleep-table th.name-column {
-        width: 140px;
-        padding-left: 10px;
+        width: 100px;
+        padding-left: 8px;
         position: sticky;
         left: 0;
         z-index: 11;
@@ -876,14 +876,14 @@ body {
     }
     
     .sleep-table .name-cell {
-        padding-left: 10px;
-        font-size: 0.85rem;
+        padding-left: 8px;
+        font-size: 0.8rem;
         position: sticky;
         left: 0;
         background-color: #f9f9f9;
         z-index: 1;
-        width: 140px;
-        max-width: 140px;
+        width: 100px;
+        max-width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -1009,8 +1009,9 @@ body {
     
     .sleep-table th.name-column,
     .sleep-table .name-cell {
-        width: 120px;
-        max-width: 120px;
+        width: 90px;
+        max-width: 90px;
+        font-size: 0.75rem;
     }
     
     .quiz-options {
