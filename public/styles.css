@@ -995,11 +995,23 @@ body {
         z-index: 10;
     }
     
+    .sleep-table th.rank-column {
+        width: 40px;
+        padding-left: 2px;
+        padding-right: 2px;
+        position: sticky;
+        left: 0;
+        z-index: 12;
+        background-color: #f0f0f0;
+        font-size: 0.7rem;
+        text-align: center;
+    }
+    
     .sleep-table th.name-column {
         width: 50px;
         padding-left: 4px;
         position: sticky;
-        left: 0;
+        left: 40px;
         z-index: 11;
         background-color: #f0f0f0;
         font-size: 0.7rem;
@@ -1009,11 +1021,25 @@ body {
         padding: 10px 4px;
     }
     
+    .sleep-table .rank-cell {
+        padding-left: 2px;
+        padding-right: 2px;
+        font-size: 0.65rem;
+        position: sticky;
+        left: 0;
+        background-color: #f9f9f9;
+        z-index: 2;
+        width: 40px;
+        max-width: 40px;
+        text-align: center;
+        font-weight: bold;
+    }
+    
     .sleep-table .name-cell {
         padding-left: 4px;
         font-size: 0.65rem;
         position: sticky;
-        left: 0;
+        left: 40px;
         background-color: #f9f9f9;
         z-index: 1;
         width: 50px;
@@ -1384,8 +1410,14 @@ body {
     z-index: 2;
 }
 
+.sleep-table th.rank-column {
+    width: 10%;
+    text-align: center;
+    background-color: #fff3cd;
+}
+
 .sleep-table th.name-column {
-    width: 40%;
+    width: 35%;
     text-align: left;
     padding-left: 20px;
 }
@@ -1404,6 +1436,12 @@ body {
     border: 1px solid #000000;
     text-align: center;
     vertical-align: middle;
+}
+
+.sleep-table .rank-cell {
+    text-align: center;
+    font-weight: bold;
+    background-color: #fff9e6;
 }
 
 .sleep-table .name-cell {

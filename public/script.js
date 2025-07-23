@@ -833,47 +833,74 @@ function createSleepTable() {
     // Get filtered students or all students
     const filteredStudents = getFilteredStudents();
     
-    filteredStudents.forEach(name => {
+    // Calculate total sleep for each student and create student data array
+    const studentsWithTotals = filteredStudents.map(name => {
+        let totalSleep = 0;
+        for (let period = 1; period <= 3; period++) {
+            const studentKey = `${name}-${period}`;
+            if (sleepData[studentKey] === 'sleeping') {
+                totalSleep += 1;
+            }
+        }
+        return { name, totalSleep };
+    });
+    
+    // Sort students by total sleep count (descending order)
+    studentsWithTotals.sort((a, b) => b.totalSleep - a.totalSleep);
+    
+    // Create table rows with ranks
+    studentsWithTotals.forEach((student, index) => {
         const row = document.createElement('tr');
-        row.dataset.studentName = name;
+        row.dataset.studentName = student.name;
+        
+        // Rank cell
+        const rankCell = document.createElement('td');
+        rankCell.className = 'rank-cell';
+        const rank = index + 1;
+        
+        // Add trophy emojis for top 3
+        let rankDisplay = rank;
+        if (rank === 1) rankDisplay = '🥇 1';
+        else if (rank === 2) rankDisplay = '🥈 2';
+        else if (rank === 3) rankDisplay = '🥉 3';
+        
+        rankCell.textContent = rankDisplay;
+        row.appendChild(rankCell);
         
         // Name cell
         const nameCell = document.createElement('td');
         nameCell.className = 'name-cell';
-        nameCell.textContent = name;
+        nameCell.textContent = student.name;
         row.appendChild(nameCell);
         
         // Period cells
-        let totalSleep = 0;
         for (let period = 1; period <= 3; period++) {
             const periodCell = document.createElement('td');
             periodCell.className = 'sleep-cell';
             
-            const studentKey = `${name}-${period}`;
+            const studentKey = `${student.name}-${period}`;
             const isAsleep = sleepData[studentKey] === 'sleeping';
             
             if (isAsleep) {
                 periodCell.classList.add('sleeping');
                 periodCell.textContent = '😴';
-                totalSleep += 1;
             } else {
                 periodCell.classList.add('awake');
                 periodCell.textContent = '😊';
             }
             
-            periodCell.onclick = () => toggleSleepStatus(periodCell, name, period);
+            periodCell.onclick = () => toggleSleepStatus(periodCell, student.name, period);
             row.appendChild(periodCell);
         }
         
         // Total cell
         const totalCell = document.createElement('td');
         totalCell.className = 'total-cell';
-        totalCell.textContent = totalSleep;
+        totalCell.textContent = student.totalSleep;
         row.appendChild(totalCell);
         
         tableBody.appendChild(row);
     });
-    
 }
 
 // Get filtered students based on search filter only
