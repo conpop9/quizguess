@@ -1,7 +1,7 @@
 # Azure Migration Summary 🚀
 
 ## Overview
-Successfully migrated Quiz Guess application from Railway to Azure with persistent PostgreSQL database storage.
+Successfully migrated Quiz Guess application from Railway to Azure with file-based storage (PostgreSQL ready for future upgrade).
 
 ## Data Status ✅
 - **Railway Data**: All files were empty (0 bytes) - no data loss
@@ -11,7 +11,7 @@ Successfully migrated Quiz Guess application from Railway to Azure with persiste
 ## Files Updated/Created
 
 ### Backend Changes
-1. **`server.js`** → **`server-railway.js`** (backup)
+1. **`server.js`** → **`server-railway.js`** (backup, can be deleted)
 2. **`server-azure.js`** → **`server.js`** (new Azure-compatible version)
    - Replaced file-based storage with PostgreSQL database
    - Added proper error handling
@@ -103,7 +103,7 @@ Successfully migrated Quiz Guess application from Railway to Azure with persiste
 
 ## Cost Comparison
 
-| Service | Railway | Azure |
+| Service | Previous (Railway) | Current (Azure) |
 |---------|---------|-------|
 | **Hosting** | $5/month (trial expired) | Free (F1 tier) |
 | **Database** | Ephemeral (no persistence) | ~$25/month (PostgreSQL) |

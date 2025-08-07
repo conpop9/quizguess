@@ -14,10 +14,10 @@
    git push heroku main
    ```
 
-### Option 2: Railway
-1. **Visit** https://railway.app
-2. **Connect your GitHub repository**
-3. **Deploy automatically** - Railway will detect Node.js and deploy
+### Option 2: Azure App Service
+1. **Visit** https://portal.azure.com
+2. **Create a new Web App**
+3. **Deploy automatically** - Azure will detect Node.js and deploy
 
 ### Option 3: Netlify + Serverless Functions
 1. **Upload to GitHub**
@@ -71,7 +71,7 @@ Set these on your hosting platform:
 ## 🌐 Domain Setup
 After deployment, you'll get a URL like:
 - Heroku: `https://your-app-name.herokuapp.com`
-- Railway: `https://your-app-name.railway.app`
+- Azure: `https://your-app-name.azurewebsites.net`
 - Netlify: `https://your-app-name.netlify.app`
 
 ## 🔒 Security Considerations

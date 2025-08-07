@@ -85,7 +85,7 @@ All data is stored in JSON files on the server:
 
 ## Deployment
 Ready for deployment on any hosting platform:
-- Heroku, Railway, Netlify, DigitalOcean
+- Heroku, Azure, Netlify, DigitalOcean
 - See `DEPLOYMENT.md` for detailed instructions
 - Environment variables support for production
 
