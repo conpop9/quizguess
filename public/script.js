@@ -26,8 +26,8 @@ const studentNames = [
     "Yash Ashok Kumar Patel", "Yash Shukla", "Yerasi Sucharitha"
 ];
 
-// API base URL
-const API_BASE = 'https://secbtp-production.up.railway.app';
+// API base URL - will be set dynamically based on environment
+const API_BASE = window.location.origin;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add scroll event listener for footer
     window.addEventListener('scroll', handleScroll);
+    
+    // Check database connectivity on startup
+    checkDatabaseStatus();
     
     // Refresh data every 10 seconds for real-time updates
     setInterval(function() {
@@ -184,6 +187,16 @@ async function signIn() {
         
         // Get user data from server
         const response = await fetch(`${API_BASE}/api/user/${rollNumber}`);
+        
+        if (!response.ok) {
+            if (response.status === 500) {
+                showSignInError('Database connection error. Please try again later.');
+            } else {
+                showSignInError('Error signing in. Please try again.');
+            }
+            return;
+        }
+        
         const userData = await response.json();
         
         currentUser = {
@@ -197,7 +210,7 @@ async function signIn() {
         showMainSection();
     } catch (error) {
         console.error('Error signing in:', error);
-        showSignInError('Error signing in. Please try again.');
+        showSignInError('Network error. Please check your connection and try again.');
     }
 }
 
@@ -1227,6 +1240,31 @@ async function checkMidnightReset() {
         }
     } catch (error) {
         console.error('Error checking counter reset:', error);
+    }
+}
+
+// Check database connectivity status
+async function checkDatabaseStatus() {
+    try {
+        const response = await fetch(`${API_BASE}/api/counter`);
+        if (response.ok) {
+            // Database is connected
+            updateDatabaseStatusIndicator('connected');
+        } else {
+            updateDatabaseStatusIndicator('error');
+        }
+    } catch (error) {
+        console.error('Database connectivity check failed:', error);
+        updateDatabaseStatusIndicator('error');
+    }
+}
+
+// Update database status indicator
+function updateDatabaseStatusIndicator(status) {
+    const syncIndicator = document.getElementById('sync-indicator');
+    if (syncIndicator) {
+        syncIndicator.className = `sync-indicator ${status}`;
+        syncIndicator.title = status === 'connected' ? 'Database Connected' : 'Database Error';
     }
 }
 

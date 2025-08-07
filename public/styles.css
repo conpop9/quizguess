@@ -481,6 +481,17 @@ body {
     color: #00ff00;
     font-size: 0.8rem;
     animation: pulse 2s infinite;
+    transition: color 0.3s ease;
+}
+
+.sync-indicator.connected {
+    color: #00ff00;
+    animation: pulse 2s infinite;
+}
+
+.sync-indicator.error {
+    color: #ff0000;
+    animation: pulse 1s infinite;
 }
 
 @keyframes pulse {
