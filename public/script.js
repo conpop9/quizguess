@@ -26,8 +26,8 @@ const studentNames = [
     "Yash Ashok Kumar Patel", "Yash Shukla", "Yerasi Sucharitha"
 ];
 
-// API base URL - will be set dynamically based on environment
-const API_BASE = window.location.origin;
+// API base URL - pointing to Azure backend
+const API_BASE = 'https://quizguess-app.azurewebsites.net';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
